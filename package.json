@@ -4,7 +4,15 @@
   "description": "light wrapper around sodium-native",
   "main": "lib/index.js",
   "scripts": {
-    "docs": "true",
+    "d_random": "jsdoc2md lib/random.js > docs/random.md",
+    "d_secbuf": "jsdoc2md lib/secbuf.js > docs/secbuf.md",
+    "d_hash": "jsdoc2md lib/hash.js > docs/hash.md",
+    "d_pwhash": "jsdoc2md lib/pwhash.js > docs/pwhash.md",
+    "d_kx": "jsdoc2md lib/kx.js > docs/kx.md",
+    "d_kdf": "jsdoc2md lib/kdf.js > docs/kdf.md",
+    "d_sign": "jsdoc2md lib/sign.js > docs/sign.md",
+    "d_aead": "jsdoc2md lib/aead.js > docs/aead.md",
+    "docs": "npm run d_random && npm run d_secbuf && npm run d_hash && npm run d_pwhash && npm run d_kx && npm run d_kdf && npm run d_sign && npm run d_aead",
     "test": "standard --fix '**/*.js' && npm run docs && nyc ./node_modules/mocha/bin/mocha 'lib/**/*.test.js'",
     "coverage": "node -e \"require('opn')('coverage/lcov-report/index.html')\""
   },
