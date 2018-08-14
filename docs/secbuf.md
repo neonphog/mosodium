@@ -26,6 +26,7 @@ Some nodejs buffer accessors may invalidate security.
 * [SecBuf](#SecBuf)
     * [new SecBuf(len, lockLevel)](#new_SecBuf_new)
     * _instance_
+        * [.lockLevel()](#SecBuf+lockLevel) ⇒ <code>string</code>
         * [.free()](#SecBuf+free)
         * [.randomize()](#SecBuf+randomize)
         * [.readable(fn)](#SecBuf+readable)
@@ -54,6 +55,13 @@ const sb = new mosodium.SecBuf(32, SecBuf.LOCK_NONE)
 const sb = new mosodium.SecBuf(32, SecBuf.LOCK_MEM)
 const sb = new mosodium.SecBuf(32, SecBuf.LOCK_ALL)
 ```
+<a name="SecBuf+lockLevel"></a>
+
+### secBuf.lockLevel() ⇒ <code>string</code>
+get current mlock/mprotect level
+
+**Kind**: instance method of [<code>SecBuf</code>](#SecBuf)  
+**Returns**: <code>string</code> - the SecBuf.LOCK_* level this SecBuf is using  
 <a name="SecBuf+free"></a>
 
 ### secBuf.free()
