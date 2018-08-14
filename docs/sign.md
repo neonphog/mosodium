@@ -1,7 +1,7 @@
 ## Functions
 
 <dl>
-<dt><a href="#seedKeypair">seedKeypair(seed)</a></dt>
+<dt><a href="#seedKeypair">seedKeypair(seed, lockLevel)</a></dt>
 <dd><p>Generate a signing keypair from a seed buffer</p>
 </dd>
 <dt><a href="#sign">sign(message, secretKey)</a> ⇒ <code>Buffer</code></dt>
@@ -14,7 +14,7 @@
 
 <a name="seedKeypair"></a>
 
-## seedKeypair(seed)
+## seedKeypair(seed, lockLevel)
 Generate a signing keypair from a seed buffer
 
 **Kind**: global function  
@@ -23,6 +23,7 @@ Generate a signing keypair from a seed buffer
 | Param | Type | Description |
 | --- | --- | --- |
 | seed | <code>SecBuf</code> | the seed to derive a keypair from |
+| lockLevel | <code>string</code> | the SecBuf.LOCK_* level of output SecBuf |
 
 **Example**  
 ```js

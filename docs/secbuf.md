@@ -1,3 +1,20 @@
+## Classes
+
+<dl>
+<dt><a href="#SecBuf">SecBuf</a></dt>
+<dd><p>Wrap libsodium memory lock and protect functions.
+Some nodejs buffer accessors may invalidate security.</p>
+</dd>
+</dl>
+
+## Constants
+
+<dl>
+<dt><a href="#LockLevel">LockLevel</a></dt>
+<dd><p>SecBuf Lock styles</p>
+</dd>
+</dl>
+
 <a name="SecBuf"></a>
 
 ## SecBuf
@@ -7,28 +24,35 @@ Some nodejs buffer accessors may invalidate security.
 **Kind**: global class  
 
 * [SecBuf](#SecBuf)
-    * [new SecBuf(len)](#new_SecBuf_new)
+    * [new SecBuf(len, lockLevel)](#new_SecBuf_new)
     * _instance_
         * [.free()](#SecBuf+free)
         * [.randomize()](#SecBuf+randomize)
         * [.readable(fn)](#SecBuf+readable)
         * [.writable(fn)](#SecBuf+writable)
+        * [.$makeReadable()](#SecBuf+$makeReadable)
+        * [.$makeWritable()](#SecBuf+$makeWritable)
+        * [.$restoreProtection()](#SecBuf+$restoreProtection)
     * _static_
         * [.readPrompt(promptText)](#SecBuf.readPrompt) ⇒ [<code>SecBuf</code>](#SecBuf)
 
 <a name="new_SecBuf_new"></a>
 
-### new SecBuf(len)
+### new SecBuf(len, lockLevel)
 create a new SecBuf with specified length
 
 
 | Param | Type | Description |
 | --- | --- | --- |
 | len | <code>number</code> | the byteLength of the new SecBuf |
+| lockLevel | <code>string</code> | the SecBuf.LOCK_* level of output SecBuf |
 
 **Example**  
 ```js
 const sb = new mosodium.SecBuf(32)
+const sb = new mosodium.SecBuf(32, SecBuf.LOCK_NONE)
+const sb = new mosodium.SecBuf(32, SecBuf.LOCK_MEM)
+const sb = new mosodium.SecBuf(32, SecBuf.LOCK_ALL)
 ```
 <a name="SecBuf+free"></a>
 
@@ -76,6 +100,24 @@ sb.writable(_sb => {
   _sb.writeUInt8(0, 0)
 })
 ```
+<a name="SecBuf+$makeReadable"></a>
+
+### secBuf.$makeReadable()
+make buffer readable indefinately... prefer #readable()
+
+**Kind**: instance method of [<code>SecBuf</code>](#SecBuf)  
+<a name="SecBuf+$makeWritable"></a>
+
+### secBuf.$makeWritable()
+make buffer writable indefinately... prefer #writable()
+
+**Kind**: instance method of [<code>SecBuf</code>](#SecBuf)  
+<a name="SecBuf+$restoreProtection"></a>
+
+### secBuf.$restoreProtection()
+restore memory protection `mprotect_noaccess`
+
+**Kind**: instance method of [<code>SecBuf</code>](#SecBuf)  
 <a name="SecBuf.readPrompt"></a>
 
 ### SecBuf.readPrompt(promptText) ⇒ [<code>SecBuf</code>](#SecBuf)
@@ -91,3 +133,9 @@ Fetch a buffer from stdin into a SecBuf.
 ```js
 const passphrase = await mosodium.SecBuf.readPrompt('passphrase (no echo): ')
 ```
+<a name="LockLevel"></a>
+
+## LockLevel
+SecBuf Lock styles
+
+**Kind**: global constant  
